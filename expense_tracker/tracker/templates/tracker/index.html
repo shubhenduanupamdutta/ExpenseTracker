@@ -1,1 +1,13 @@
+{% extends "tracker/base.html" %}
+<!-- Example of using super in template inheritance -->
+{% block title %}
+{{ block.super }}
+{% endblock title %}
+<!-- End of Example -->
+
+<!-- Body starts here -->
+{% block body %}
 <h1> This is a template </h1>
+
+<!-- body ends here -->
+{% endblock body %}
