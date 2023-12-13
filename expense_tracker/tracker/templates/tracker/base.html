@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% block title %}
+  <!-- Custom head details goes here -->
+  <title>Expense Tracker</title>
+
+  <!-- Custom head details ends here -->
+  {% endblock title %}
+  <link rel="stylesheet" href="{% static 'tracker/styles.css' %}" type="text/css" />
+  {% block styles %}
+  <!-- Styles goes here -->
+
+  <!-- Styles ends here -->
+  {% endblock styles %}
+</head>
+
+<body>
+  {% block body %}
+  <!-- Body starts here -->
+
+  <!-- Body ends here -->
+  {% endblock body %}
+
+  {% block scripts %}
+  <!-- Script goes here -->
+
+  <!-- Script ends here -->
+  {% endblock scripts %}
+</body>
+
+</html>
