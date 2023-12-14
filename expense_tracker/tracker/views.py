@@ -29,3 +29,10 @@ def edit(request, id):
     expense = Expense.objects.get(id=id)
     form = ExpenseForm(instance=expense)  # pre-populate form with expense data
     return render(request, "tracker/edit.html", {"form": form})
+
+
+def delete(request, id):
+    if request.method == "POST" and 'delete' in request.POST:
+        expense = Expense.objects.get(id=id)
+        expense.delete()
+        return redirect("index")
