@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-
+from django.db.models import Sum
 from .models import Expense
 from .forms import ExpenseForm
 
@@ -13,8 +13,10 @@ def index(request):
         return redirect("index")
 
     expenses = Expense.objects.all()
+    total_expenses = expenses.aggregate(Sum("amount"))
     form = ExpenseForm()
-    context = {"expenses": expenses, "form": form}
+    context = {"expenses": expenses, "form": form,
+               "total_expenses": total_expenses}
     return render(request, "tracker/index.html", context)
 
 
