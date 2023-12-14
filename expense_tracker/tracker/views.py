@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.db.models import Sum
 from .models import Expense
 from .forms import ExpenseForm
+import datetime
 
 
 # Create your views here.
@@ -15,8 +16,30 @@ def index(request):
     expenses = Expense.objects.all()
     total_expenses = expenses.aggregate(Sum("amount"))
     form = ExpenseForm()
-    context = {"expenses": expenses, "form": form,
-               "total_expenses": total_expenses}
+
+    # Logic to calculate the total expenses for the year (last 365 days)
+    last_year = datetime.date.today() - datetime.timedelta(days=365)
+    data_last_year = Expense.objects.filter(date__gt=last_year)
+    total_last_year = data_last_year.aggregate(Sum("amount"))
+
+    # Logic to calculate the total expenses for the month (last 30 days)
+    last_month = datetime.date.today() - datetime.timedelta(days=30)
+    data_last_month = Expense.objects.filter(date__gt=last_month)
+    total_last_month = data_last_month.aggregate(Sum("amount"))
+
+    # Logic to calculate the total expenses for the week (last 7 days)
+    last_week = datetime.date.today() - datetime.timedelta(days=7)
+    data_last_week = Expense.objects.filter(date__gt=last_week)
+    total_last_week = data_last_week.aggregate(Sum("amount"))
+
+    context = {
+        "expenses": expenses,
+        "form": form,
+        "total_expenses": total_expenses,
+        "yearly_sum": total_last_year,
+        "monthly_sum": total_last_month,
+        "weekly_sum": total_last_week,
+    }
     return render(request, "tracker/index.html", context)
 
 
