@@ -1,4 +1,5 @@
 {% extends "tracker/base.html" %}
+{% load humanize %}
 <!-- Example of using super in template inheritance -->
 {% block title %} {{ block.super }} {% endblock title %}
 <!-- End of Example -->
@@ -67,7 +68,7 @@
     {% for expense in expenses %}
     <div class="expense-row flex flex-wrap px-20 py-3">
       <span class="font-semibold">{{ expense.name }}</span>
-      <span class="font-semibold">&#8377; {{ expense.amount }}</span>
+      <span class="font-semibold">&#8377; {{ expense.amount|intcomma }}</span>
       <span class="font-semibold">{{ expense.category }}</span>
       <span class="font-semibold">{{ expense.date }}</span>
       <span class="font-semibold">
@@ -86,7 +87,7 @@
     <hr class="bg-gray-800 w-full h-0.5">
     <div class="expense-row flex flex-wrap px-20 py-3">
       <span></span>
-      <span class="font-bold text-green-500">Total: &#8377; {{total_expenses.amount__sum}}</span>
+      <span class="font-bold text-green-500">Total: &#8377; {{total_expenses.amount__sum|intcomma }}</span>
       <span></span>
       <span></span>
       <span></span>
