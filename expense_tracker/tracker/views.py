@@ -16,3 +16,16 @@ def index(request):
     form = ExpenseForm()
     context = {"expenses": expenses, "form": form}
     return render(request, "tracker/index.html", context)
+
+
+def edit(request, id):
+    if request.method == "POST":
+        expense = Expense.objects.get(id=id)
+        form = ExpenseForm(request.POST, instance=expense)
+        if form.is_valid():
+            form.save()
+        return redirect("index")
+
+    expense = Expense.objects.get(id=id)
+    form = ExpenseForm(instance=expense)  # pre-populate form with expense data
+    return render(request, "tracker/edit.html", {"form": form})

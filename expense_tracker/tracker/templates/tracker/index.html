@@ -70,7 +70,7 @@
       <span class="font-semibold">{{ expense.amount }}</span>
       <span class="font-semibold">{{ expense.category }}</span>
       <span class="font-semibold">{{ expense.date }}</span>
-      <span class="font-semibold"><a href="#">Edit</a></span>
+      <span class="font-semibold"><a href="{% url 'edit' expense.id %}">Edit</a></span>
       <span class="font-semibold"><a href="#">Delete</a></span>
     </div>
     {% endfor %}
