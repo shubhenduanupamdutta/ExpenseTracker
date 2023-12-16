@@ -32,6 +32,14 @@ def index(request):
     data_last_week = Expense.objects.filter(date__gt=last_week)
     total_last_week = data_last_week.aggregate(Sum("amount"))
 
+    # Logic to calculate daily expenses for last 30 days
+    daily_expenses = Expense.objects\
+        .filter()\
+        .values('date')\
+        .order_by('date')\
+        .annotate(sum=Sum('amount'))
+    print(daily_expenses)
+
     context = {
         "expenses": expenses,
         "form": form,
@@ -39,6 +47,7 @@ def index(request):
         "yearly_sum": total_last_year,
         "monthly_sum": total_last_month,
         "weekly_sum": total_last_week,
+        "daily_expenses": daily_expenses,
     }
     return render(request, "tracker/index.html", context)
 
