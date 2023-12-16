@@ -97,7 +97,7 @@
   </div>
 </div>
 <div class="h-5 w-2/3 m-auto"></div>
-<div class="w-2/3 m-auto bg-gray-100 p-10 mb-10 rounded-xl flex space-x-8">
+<div class="w-2/3 m-auto bg-gray-100 p-10 rounded-xl flex space-x-8">
   <div class="w-1/3 shadow-lg bg-gray-200 rounded-lg">
     <h1 class="ml-12 py-2 font-bold text-gray-700">Last 365 Days</h1>
     <h1 class="ml-12 py-1 text-2xl font-bold text-green-600">
@@ -117,5 +117,26 @@
     </h1>
   </div>
 </div>
+
+<div class="h-5 w-2/3 m-auto"></div>
+<div class="w-2/3 m-auto bg-gray-100 p-10 rounded-xl flex space-x-8">
+  <div class="w-1/2 shadow-lg m-10">
+    <div class="flex flex-wrap space-x-40 font-bold px-20 py-5">
+      <span> Past 30 Days: Daily Expenses </span>
+    </div>
+    <hr>
+    <div id="30-day-table">
+      {% for daily_expense in daily_expenses %}
+      <div class="flex flex-wrap px-20 py-5">
+        <span> {{ daily_expense.date }} </span>
+      </div>
+      <div class="flex flex-wrap px-20 py-5">
+        <span class="text-green-600">&#8377; {{ daily_expense.sum|intcomma }} </span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
 <!-- body ends here -->
+<div class="h-20 w-2/3 m-auto"></div>
 {% endblock body %}
