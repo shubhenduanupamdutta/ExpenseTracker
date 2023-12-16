@@ -34,10 +34,17 @@ def index(request):
 
     # Logic to calculate daily expenses for last 30 days
     daily_expenses = Expense.objects\
-        .filter()\
+        .filter(date__gt=last_month)\
         .values('date')\
         .order_by('date')\
         .annotate(sum=Sum('amount'))
+
+    categorical_expenses = Expense.objects\
+        .filter(date__gt=last_month)\
+        .values('category')\
+        .order_by('category')\
+        .annotate(sum=Sum('amount'))
+
     print(daily_expenses)
 
     context = {
@@ -48,6 +55,7 @@ def index(request):
         "monthly_sum": total_last_month,
         "weekly_sum": total_last_week,
         "daily_expenses": daily_expenses,
+        "categorical_expenses": categorical_expenses,
     }
     return render(request, "tracker/index.html", context)
 
