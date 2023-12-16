@@ -45,8 +45,6 @@ def index(request):
         .order_by('category')\
         .annotate(sum=Sum('amount'))
 
-    print(daily_expenses)
-
     context = {
         "expenses": expenses,
         "form": form,
